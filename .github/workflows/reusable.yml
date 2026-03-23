@@ -3,18 +3,18 @@ on:
   workflow_call:
     inputs:
       artifact-name:
-      description: the name of deployable artifact files
-      default: dist
-      type: string
-      # secrets:
-      #   some-secret:
-      #     required: false
+        description: "the name of deployable artifact files"
+        default: "dist"
+        type: string
+        # secrets:
+        #   some-secret:
+        #     required: false
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - name: get code
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: ${{ inputs.artifact-name }}
       - name: list files
