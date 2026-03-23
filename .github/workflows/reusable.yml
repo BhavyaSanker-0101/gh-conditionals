@@ -6,11 +6,18 @@ on:
         description: "the name of deployable artifact files"
         default: "dist"
         type: string
+    outputs:
+      result:
+        description: the result of deployment operation
+        value: ${{ jobs.deploy.outputs.outcome}}
         # secrets:
         #   some-secret:
         #     required: false
 jobs:
   deploy:
+    outputs:
+      outcomes: ${{ steps.set-result.outputs.step-result}}
+
     runs-on: ubuntu-latest
     steps:
       - name: get code
@@ -21,4 +28,9 @@ jobs:
         run: ls
       - name: output info
         run: echo "deploying and uploading"
-      
+      - name: set result output
+        id: set-result
+        run: echo "::set-output name=step-result::success"  
+
+ 
+
